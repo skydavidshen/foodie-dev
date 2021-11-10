@@ -14,7 +14,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource    #  数据源类型：HikariCP
     driver-class-name: com.mysql.jdbc.Driver    #  mysql驱动
-    url: jdbc:mysql://172.100.10.10:3306/foodie-shop?useUnicode=true&characterEncoding=UTF-8&autoReconnect
+    url: jdbc:mysql://172.100.10.10:3306/foodie-shop?useUnicode=true&characterEncoding=UTF-8&autoReconnect&useSSL=false
     username: root
     password: heavengifts
     hikari:

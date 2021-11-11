@@ -6,14 +6,23 @@ import com.imooc.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.imooc.utils.CommonJsonResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/passport")
 public class PassportController {
     @Autowired
     private UserService userService;
+
+    @GetMapping("/usernameIsExist")
+    public CommonJsonResult usernameIsExist(@RequestParam String username) {
+        boolean isExist = userService.queryUsernameIsExist(username);
+        if (isExist) {
+            return CommonJsonResult.errorMsg("用户名已存在。");
+        }
+
+        return CommonJsonResult.ok();
+    }
 
     @PostMapping("/regist")
     public CommonJsonResult regist(@RequestBody UserBo userBo) {
@@ -46,6 +55,21 @@ public class PassportController {
             return CommonJsonResult.errorMsg(e.getMessage());
         }
 
+        return CommonJsonResult.ok(user);
+    }
+
+    @PostMapping("/login")
+    public CommonJsonResult login(@RequestBody UserBo userBo) {
+        String username = userBo.getUsername();
+        String password = userBo.getPassword();
+        if (StringUtils.isBlank(username) ||
+                StringUtils.isBlank(password)) {
+            return CommonJsonResult.errorMsg("用户名或密码不能为空。");
+        }
+        Users user = userService.queryUserForLogin(username, password);
+        if (user == null) {
+            return CommonJsonResult.errorMsg("用户名或密码不正确。");
+        }
         return CommonJsonResult.ok(user);
     }
 }

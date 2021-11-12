@@ -3,14 +3,19 @@ package com.imooc.controller;
 import com.imooc.bo.UserBo;
 import com.imooc.pojo.Users;
 import com.imooc.service.UserService;
+import com.imooc.utils.CookieUtils;
+import com.imooc.utils.JsonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.imooc.utils.CommonJsonResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 @RequestMapping("/passport")
-public class PassportController {
+public class PassportController extends BaseController {
     @Autowired
     private UserService userService;
 
@@ -59,7 +64,9 @@ public class PassportController {
     }
 
     @PostMapping("/login")
-    public CommonJsonResult login(@RequestBody UserBo userBo) {
+    public CommonJsonResult login(@RequestBody UserBo userBo,
+                                  HttpServletRequest request,
+                                  HttpServletResponse response) {
         String username = userBo.getUsername();
         String password = userBo.getPassword();
         if (StringUtils.isBlank(username) ||
@@ -70,6 +77,9 @@ public class PassportController {
         if (user == null) {
             return CommonJsonResult.errorMsg("用户名或密码不正确。");
         }
+
+        user = setNullProperty(user);
+        CookieUtils.setCookie(request, response, "user", JsonUtils.objectToJson(user), true);
         return CommonJsonResult.ok(user);
     }
 }

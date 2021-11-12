@@ -3,4 +3,5 @@
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-api/src/main/java/com/imooc/controller/PassportController.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-api/src/main/java/com/imooc/controller/StuFooController.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-api/src/main/java/com/imooc/Application.java
+/Users/davidshen/Documents/java/foodie-dev/foodie-dev-api/src/main/java/com/imooc/aspect/ServiceLogAspect.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-api/src/main/java/com/imooc/config/CorsConfig.java

@@ -82,4 +82,12 @@ public class PassportController extends BaseController {
         CookieUtils.setCookie(request, response, "user", JsonUtils.objectToJson(user), true);
         return CommonJsonResult.ok(user);
     }
+
+    @PostMapping("/logout")
+    public CommonJsonResult logout(@RequestParam String userId,
+                                   HttpServletRequest request,
+                                   HttpServletResponse response) {
+        CookieUtils.deleteCookie(request, response, "user");
+        return CommonJsonResult.ok();
+    }
 }

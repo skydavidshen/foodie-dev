@@ -4,4 +4,5 @@ com/imooc/aspect/ServiceLogAspect.class
 com/imooc/Application.class
 com/imooc/controller/HelloController.class
 com/imooc/controller/StuFooController.class
+com/imooc/controller/ItemController.class
 com/imooc/controller/IndexController.class

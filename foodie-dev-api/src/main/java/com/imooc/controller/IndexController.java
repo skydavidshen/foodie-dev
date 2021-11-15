@@ -6,6 +6,7 @@ import com.imooc.pojo.Category;
 import com.imooc.service.CarouselService;
 import com.imooc.service.CategoryService;
 import com.imooc.vo.CategoryVO;
+import com.imooc.vo.IndexFloorVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,5 +44,12 @@ public class IndexController {
         log.info("rootCatId: " + rootCatId);
         List<CategoryVO> categoryList = categoryService.getSubCatList(rootCatId);
         return CommonJsonResult.ok(categoryList);
+    }
+
+    @GetMapping("/sixNewItems/{rootCatId}")
+    public CommonJsonResult sixNewItems(@PathVariable Integer rootCatId) {
+        log.info("rootCatId: " + rootCatId);
+        List<IndexFloorVO> list = categoryService.getSixNewItemsLazy(rootCatId);
+        return CommonJsonResult.ok(list);
     }
 }

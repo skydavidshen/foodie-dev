@@ -7,7 +7,9 @@
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-mapper/src/main/java/com/imooc/mapper/OrderItemsMapper.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-mapper/src/main/java/com/imooc/mapper/ItemsSpecMapper.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-mapper/src/main/java/com/imooc/mapper/CategoryMapper.java
+/Users/davidshen/Documents/java/foodie-dev/foodie-dev-mapper/src/main/java/com/imooc/mapper/ItemsMapperCustom.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-mapper/src/main/java/com/imooc/mapper/ItemsCommentsMapper.java
+/Users/davidshen/Documents/java/foodie-dev/foodie-dev-mapper/src/main/java/com/imooc/mapper/ItemsCommentsMapperCustom.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-mapper/src/main/java/com/imooc/mapper/ItemsImgMapper.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-mapper/src/main/java/com/imooc/mapper/ItemsMapper.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-mapper/src/main/java/com/imooc/mapper/UserAddressMapper.java

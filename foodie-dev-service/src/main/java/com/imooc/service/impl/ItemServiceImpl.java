@@ -1,12 +1,18 @@
 package com.imooc.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.imooc.enums.CategoryType;
+import com.imooc.enums.CommentLevel;
 import com.imooc.mapper.*;
 import com.imooc.pojo.*;
 import com.imooc.service.CategoryService;
 import com.imooc.service.ItemService;
+import com.imooc.utils.PagedGridResult;
 import com.imooc.vo.CategoryVO;
+import com.imooc.vo.CommentLevelCountsVO;
 import com.imooc.vo.IndexFloorVO;
+import com.imooc.vo.ItemCommentVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +40,12 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private ItemsParamMapper itemsParamMapper;
 
+    @Autowired
+    private ItemsCommentsMapper itemsCommentsMapper;
+
+    @Autowired
+    private ItemsMapperCustom itemsMapperCustom;
+
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public Items queryItemById(String itemId) {
@@ -44,6 +56,7 @@ public class ItemServiceImpl implements ItemService {
         return items;
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public List<ItemsImg> queryItemImgList(String itemId) {
         Example example = new Example(ItemsImg.class);
@@ -53,6 +66,7 @@ public class ItemServiceImpl implements ItemService {
         return list;
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public ItemsParam queryItemParam(String itemId) {
         Example example = new Example(ItemsParam.class);
@@ -62,6 +76,7 @@ public class ItemServiceImpl implements ItemService {
         return itemsParam;
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public List<ItemsSpec> queryItemSpecList(String itemId) {
         Example example = new Example(ItemsSpec.class);
@@ -69,5 +84,53 @@ public class ItemServiceImpl implements ItemService {
         criteria.andEqualTo("itemId", itemId);
         List<ItemsSpec> list = itemsSpecMapper.selectByExample(example);
         return list;
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public CommentLevelCountsVO queryCommentCounts(String itemId) {
+        CommentLevelCountsVO commentLevelCountsVO = new CommentLevelCountsVO();
+        commentLevelCountsVO.setGoodCounts(getCommentCounts(itemId, CommentLevel.GOOD.type));
+        commentLevelCountsVO.setNormalCounts(getCommentCounts(itemId, CommentLevel.NORMAL.type));
+        commentLevelCountsVO.setBadCounts(getCommentCounts(itemId, CommentLevel.BAD.type));
+
+        Integer totalCount = commentLevelCountsVO.getBadCounts() + commentLevelCountsVO.getGoodCounts() +
+                commentLevelCountsVO.getNormalCounts();
+        commentLevelCountsVO.setTotalCounts(totalCount);
+
+        return commentLevelCountsVO;
+    }
+
+    @Override
+    public PagedGridResult queryPagedComments(String itemId, Integer level, Integer page, Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
+        List<ItemCommentVO> list = itemsMapperCustom.queryItemComments(itemId, level);
+        log.info("查询商品:{}和评价等级为{}的评论分页数据为：{}", itemId, level, list);
+        return setterPagedGrid(list, page);
+    }
+
+    private PagedGridResult setterPagedGrid(List<?> list,Integer page){
+        //包含佷多的分页的数据，需要反馈给前端
+        PageInfo<?> pageList = new PageInfo<>(list);
+        PagedGridResult grid = new PagedGridResult();
+        //当前页
+        grid.setPage(page);
+        //总记录数
+        grid.setRecords(pageList.getTotal());
+        //每行显示的内容
+        grid.setRows(pageList.getList());
+        //总页数
+        grid.setTotal(pageList.getPages());
+        return grid;
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    Integer getCommentCounts(String itemId, Integer level) {
+        ItemsComments itemsComments = new ItemsComments();
+        itemsComments.setItemId(itemId);
+        if (level != null) {
+            itemsComments.setCommentLevel(level);
+        }
+        return itemsCommentsMapper.selectCount(itemsComments);
     }
 }

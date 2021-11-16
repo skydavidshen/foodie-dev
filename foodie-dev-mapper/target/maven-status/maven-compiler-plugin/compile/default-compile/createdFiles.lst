@@ -7,10 +7,12 @@ com/imooc/mapper/CategoryMapperCustom.class
 com/imooc/mapper/ItemsCommentsMapper.class
 com/imooc/mapper/ItemsParamMapper.class
 com/imooc/mapper/OrdersMapper.class
+com/imooc/mapper/ItemsMapperCustom.class
 com/imooc/mapper/CarouselMapper.class
 com/imooc/mapper/ItemsMapper.class
 com/imooc/mapper/ItemsImgMapper.class
 com/imooc/mapper/PayInfoMapper.class
 com/imooc/mapper/OrderItemsMapper.class
+com/imooc/mapper/ItemsCommentsMapperCustom.class
 com/imooc/mapper/CategoryMapper.class
 com/imooc/mapper/StuMapper.class

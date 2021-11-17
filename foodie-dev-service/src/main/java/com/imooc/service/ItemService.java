@@ -15,4 +15,6 @@ public interface ItemService {
     List<ItemsSpec> queryItemSpecList(String itemId);
     CommentLevelCountsVO queryCommentCounts(String itemId);
     PagedGridResult queryPagedComments(String itemId, Integer level, Integer page, Integer pageSize);
+    PagedGridResult searchItem(String keywords, String sort, Integer page, Integer pageSize);
+    PagedGridResult searchCatItems(Integer catId, String sort, Integer page, Integer pageSize);
 }

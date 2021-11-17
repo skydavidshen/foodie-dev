@@ -59,4 +59,22 @@ public class ItemController {
         PagedGridResult result = itemService.queryPagedComments(itemId, level, page, 10);
         return CommonJsonResult.ok(result);
     }
+
+    @GetMapping("/search")
+    public CommonJsonResult search(@RequestParam String keywords,
+                                     @RequestParam(name = "sort", defaultValue = "") String sort,
+                                     @RequestParam(name = "page", defaultValue = "1") Integer page,
+                                     @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
+        PagedGridResult result = itemService.searchItem(keywords, sort, page, pageSize);
+        return CommonJsonResult.ok(result);
+    }
+
+    @GetMapping("/catItems")
+    public CommonJsonResult search(@RequestParam Integer catId,
+                                   @RequestParam(name = "sort", defaultValue = "") String sort,
+                                   @RequestParam(name = "page", defaultValue = "1") Integer page,
+                                   @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
+        PagedGridResult result = itemService.searchCatItems(catId, sort, page, pageSize);
+        return CommonJsonResult.ok(result);
+    }
 }

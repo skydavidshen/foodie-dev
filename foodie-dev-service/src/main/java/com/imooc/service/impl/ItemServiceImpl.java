@@ -9,10 +9,7 @@ import com.imooc.pojo.*;
 import com.imooc.service.CategoryService;
 import com.imooc.service.ItemService;
 import com.imooc.utils.PagedGridResult;
-import com.imooc.vo.CategoryVO;
-import com.imooc.vo.CommentLevelCountsVO;
-import com.imooc.vo.IndexFloorVO;
-import com.imooc.vo.ItemCommentVO;
+import com.imooc.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -101,11 +98,29 @@ public class ItemServiceImpl implements ItemService {
         return commentLevelCountsVO;
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public PagedGridResult queryPagedComments(String itemId, Integer level, Integer page, Integer pageSize) {
         PageHelper.startPage(page, pageSize);
         List<ItemCommentVO> list = itemsMapperCustom.queryItemComments(itemId, level);
         log.info("查询商品:{}和评价等级为{}的评论分页数据为：{}", itemId, level, list);
+        return setterPagedGrid(list, page);
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public PagedGridResult searchItem(String keywords, String sort, Integer page, Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
+        List<SearchItemVO> list = itemsMapperCustom.searchItem(keywords, sort);
+        log.info("查询商品searchItem: {}和评价等级为{}的评论分页数据为：{}", keywords, sort, list);
+        return setterPagedGrid(list, page);
+    }
+
+    @Override
+    public PagedGridResult searchCatItems(Integer catId, String sort, Integer page, Integer pageSize) {
+        PageHelper.startPage(page, pageSize);
+        List<SearchItemVO> list = itemsMapperCustom.searchCatItems(catId, sort);
+        log.info("查询商品searchCatItems: {}和评价等级为{}的评论分页数据为：{}", catId, sort, list);
         return setterPagedGrid(list, page);
     }
 

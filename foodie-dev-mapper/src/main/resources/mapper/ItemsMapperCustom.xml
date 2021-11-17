@@ -17,4 +17,80 @@
             AND  ic.comment_level = #{level}
         </if>
     </select>
+
+    <select id="searchItem" resultType="com.imooc.vo.SearchItemVO">
+        select
+            i.id as itemId,
+            i.item_name as itemName,
+            i.sell_counts as sellCounts,
+            ii.url as imgUrl,
+            temp_item.price_discount as price
+        from
+            items as i
+        left join
+            items_img as ii
+        on
+                i.id = ii.item_id
+        left join
+            (
+                select item_id, MIN(price_discount) as price_discount from items_spec group by item_id
+            ) as temp_item
+        on
+                i.id = temp_item.item_id
+        where
+            ii.is_main = 1
+            <if test="keywords != null and keywords != ''">
+                AND  i.item_name like '%${keywords}%'
+            </if>
+        order by
+            <choose>
+                <when test="sort == &quot;c&quot;">
+                    i.sell_counts desc
+                </when>
+                <when test="sort == &quot;p&quot;">
+                    temp_item.price_discount asc
+                </when>
+                <otherwise>
+                    i.item_name asc
+                </otherwise>
+            </choose>
+    </select>
+    
+    <select id="searchCatItems" resultType="com.imooc.vo.SearchItemVO">
+        select
+        i.id as itemId,
+        i.item_name as itemName,
+        i.sell_counts as sellCounts,
+        ii.url as imgUrl,
+        temp_item.price_discount as price
+        from
+        items as i
+        left join
+        items_img as ii
+        on
+        i.id = ii.item_id
+        left join
+        (
+        select item_id, MIN(price_discount) as price_discount from items_spec group by item_id
+        ) as temp_item
+        on
+        i.id = temp_item.item_id
+        where
+        ii.is_main = 1
+        <if test="catId != null and catId != ''">
+            AND  i.cat_id like '%${catId}%'
+        </if>
+        order by
+        <choose>
+            <when test="sort == &quot;c&quot;">
+                i.sell_counts desc
+            </when>
+            <when test="sort == &quot;p&quot;">
+                temp_item.price_discount asc
+            </when>
+            <otherwise>
+                i.item_name asc
+            </otherwise>
+        </choose>
+    </select>
 </mapper>

@@ -116,12 +116,20 @@ public class ItemServiceImpl implements ItemService {
         return setterPagedGrid(list, page);
     }
 
+    @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public PagedGridResult searchCatItems(Integer catId, String sort, Integer page, Integer pageSize) {
         PageHelper.startPage(page, pageSize);
         List<SearchItemVO> list = itemsMapperCustom.searchCatItems(catId, sort);
         log.info("查询商品searchCatItems: {}和评价等级为{}的评论分页数据为：{}", catId, sort, list);
         return setterPagedGrid(list, page);
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public List<ItemSpecIdsVO> queryItemBySpecIds(List<String> specIds) {
+        List<ItemSpecIdsVO> itemSpecIdsVO = itemsMapperCustom.queryItemBySpecIds(specIds);
+        return itemSpecIdsVO;
     }
 
     private PagedGridResult setterPagedGrid(List<?> list,Integer page){

@@ -93,4 +93,28 @@
             </otherwise>
         </choose>
     </select>
+    
+    <select id="queryItemBySpecIds" parameterType="list" resultType="com.imooc.vo.ItemSpecIdsVO">
+        select
+            i.id AS itemId,
+            i.item_name AS itemName,
+            ii.url AS itemImgUrl,
+            isp.id AS specId,
+            isp.`name` AS specName,
+            isp.price_discount AS priceDiscount,
+            isp.price_normal AS priceNormal
+        from
+             items_spec as isp
+        left join
+            items_img as ii
+        on isp.item_id = ii.item_id
+        left join
+            items as i
+        on isp.item_id = i.id
+        where
+            ii.is_main = 1 and isp.id in
+            <foreach collection="specIdsList" index="index" item="specId" open="(" separator="," close=")">
+                #{specId}
+            </foreach>
+    </select>
 </mapper>

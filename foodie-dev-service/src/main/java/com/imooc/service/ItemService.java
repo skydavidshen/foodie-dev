@@ -5,6 +5,7 @@ import com.imooc.utils.PagedGridResult;
 import com.imooc.vo.CategoryVO;
 import com.imooc.vo.CommentLevelCountsVO;
 import com.imooc.vo.IndexFloorVO;
+import com.imooc.vo.ItemSpecIdsVO;
 
 import java.util.List;
 
@@ -17,4 +18,5 @@ public interface ItemService {
     PagedGridResult queryPagedComments(String itemId, Integer level, Integer page, Integer pageSize);
     PagedGridResult searchItem(String keywords, String sort, Integer page, Integer pageSize);
     PagedGridResult searchCatItems(Integer catId, String sort, Integer page, Integer pageSize);
+    List<ItemSpecIdsVO> queryItemBySpecIds(List<String> specIds);
 }

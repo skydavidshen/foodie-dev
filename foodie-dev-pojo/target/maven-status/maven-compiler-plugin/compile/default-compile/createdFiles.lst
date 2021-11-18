@@ -17,6 +17,7 @@ com/imooc/pojo/OrderStatus.class
 com/imooc/vo/IndexFloorItemVO.class
 com/imooc/vo/SubCategoryVO.class
 com/imooc/pojo/Carousel.class
+com/imooc/bo/UserAddressBo.class
 com/imooc/vo/SearchItemVO.class
 com/imooc/pojo/Users.class
 com/imooc/bo/ItemSpecIdsBO.class

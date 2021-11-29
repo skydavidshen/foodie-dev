@@ -17,4 +17,5 @@ public interface ItemsMapperCustom extends MyMapper<Items> {
     List<SearchItemVO> searchItem(@Param("keywords") String keywords, @Param("sort") String sort);
     List<SearchItemVO> searchCatItems(@Param("catId") Integer catId, @Param("sort") String sort);
     List<ItemSpecIdsVO> queryItemBySpecIds(@Param("specIdsList") List<String> specIdsList);
+    void decreaseItemSpecStock(@Param("itemSpecId") String itemSpecId, @Param("num") Integer num);
 }

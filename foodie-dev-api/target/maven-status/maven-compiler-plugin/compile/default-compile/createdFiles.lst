@@ -3,6 +3,7 @@ com/imooc/aspect/ServiceLogAspect.class
 com/imooc/controller/UserAddressController.class
 com/imooc/controller/ItemController.class
 com/imooc/controller/IndexController.class
+com/imooc/controller/OrderController.class
 com/imooc/controller/BaseController.class
 com/imooc/Application.class
 com/imooc/controller/ShopCartController.class

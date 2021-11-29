@@ -5,10 +5,7 @@ import com.imooc.bo.UserBo;
 import com.imooc.enums.OrderStatusEnum;
 import com.imooc.enums.Sex;
 import com.imooc.enums.YesOrNo;
-import com.imooc.mapper.OrderItemsMapper;
-import com.imooc.mapper.OrderStatusMapper;
-import com.imooc.mapper.OrdersMapper;
-import com.imooc.mapper.UsersMapper;
+import com.imooc.mapper.*;
 import com.imooc.pojo.*;
 import com.imooc.service.ItemService;
 import com.imooc.service.OrderService;
@@ -44,9 +41,12 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderStatusMapper orderStatusMapper;
 
+    @Autowired
+    private ItemsMapperCustom itemsMapperCustom;
+
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
-    public void createOrder(SubmitOrderBo submitOrderBo) {
+    public String createOrder(SubmitOrderBo submitOrderBo) {
         String orderId = Sid.nextShort();
         UserAddress userAddress = userAddressService.getById(submitOrderBo.getAddressId());
         Integer totalAmount = 0;
@@ -73,6 +73,8 @@ public class OrderServiceImpl implements OrderService {
 
             totalAmount += itemsSpec.getPriceNormal();
             realPayAmount += itemsSpec.getPriceDiscount();
+
+            itemsMapperCustom.decreaseItemSpecStock(itemsSpec.getId(), buyCount);
         }
 
         Orders orders = new Orders();
@@ -101,5 +103,7 @@ public class OrderServiceImpl implements OrderService {
         orderStatus.setOrderStatus(OrderStatusEnum.WAIT_PAY.type);
         orderStatus.setCreatedTime(new Date());
         orderStatusMapper.insert(orderStatus);
+
+        return orderId;
     }
 }

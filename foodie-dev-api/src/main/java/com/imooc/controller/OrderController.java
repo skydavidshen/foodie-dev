@@ -18,7 +18,7 @@ public class OrderController extends BaseController {
 
     @PostMapping("/create")
     public CommonJsonResult create(@RequestBody SubmitOrderBo submitOrderBo) {
-        orderService.createOrder(submitOrderBo);
-        return CommonJsonResult.ok();
+        String orderId = orderService.createOrder(submitOrderBo);
+        return CommonJsonResult.ok(orderId);
     }
 }

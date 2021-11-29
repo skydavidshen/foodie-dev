@@ -5,5 +5,5 @@ import com.imooc.bo.UserBo;
 import com.imooc.pojo.Users;
 
 public interface OrderService {
-    void createOrder(SubmitOrderBo submitOrderBo);
+    String createOrder(SubmitOrderBo submitOrderBo);
 }

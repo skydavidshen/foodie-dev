@@ -85,4 +85,9 @@ public class UserAddressServiceImpl implements UserAddressService {
         address.setId(addressId);
         userAddressMapper.delete(address);
     }
+
+    @Override
+    public UserAddress getById(String addressId) {
+        return userAddressMapper.selectByPrimaryKey(addressId);
+    }
 }

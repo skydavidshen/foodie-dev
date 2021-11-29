@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.imooc.enums.CategoryType;
 import com.imooc.enums.CommentLevel;
+import com.imooc.enums.YesOrNo;
 import com.imooc.mapper.*;
 import com.imooc.pojo.*;
 import com.imooc.service.CategoryService;
@@ -130,6 +131,20 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemSpecIdsVO> queryItemBySpecIds(List<String> specIds) {
         List<ItemSpecIdsVO> itemSpecIdsVO = itemsMapperCustom.queryItemBySpecIds(specIds);
         return itemSpecIdsVO;
+    }
+
+    @Override
+    public ItemsSpec getItemSpecById(String specId) {
+        return itemsSpecMapper.selectByPrimaryKey(specId);
+    }
+
+    @Override
+    public ItemsImg getItemMainImgByItemId(String itemId) {
+        Example example = new Example(ItemsImg.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("itemId", itemId);
+        criteria.andEqualTo("isMain", YesOrNo.YES.type);
+        return itemsImgMapper.selectOneByExample(example);
     }
 
     private PagedGridResult setterPagedGrid(List<?> list,Integer page){

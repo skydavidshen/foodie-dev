@@ -12,4 +12,5 @@ public interface UserAddressService {
     public void update(UserAddressBo userAddress);
     void setDefault(String userId, String addressId);
     void delete(String userId, String addressId);
+    UserAddress getById(String addressId);
 }

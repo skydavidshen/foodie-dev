@@ -19,4 +19,6 @@ public interface ItemService {
     PagedGridResult searchItem(String keywords, String sort, Integer page, Integer pageSize);
     PagedGridResult searchCatItems(Integer catId, String sort, Integer page, Integer pageSize);
     List<ItemSpecIdsVO> queryItemBySpecIds(List<String> specIds);
+    ItemsSpec getItemSpecById(String specId);
+    ItemsImg getItemMainImgByItemId(String itemId);
 }

@@ -21,4 +21,10 @@ public class OrderController extends BaseController {
         String orderId = orderService.createOrder(submitOrderBo);
         return CommonJsonResult.ok(orderId);
     }
+
+    @PostMapping("/pay")
+    public CommonJsonResult payOrder(@RequestParam String orderId) {
+        orderService.payOrder(orderId);
+        return CommonJsonResult.ok(orderId);
+    }
 }

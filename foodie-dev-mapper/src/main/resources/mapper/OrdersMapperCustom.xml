@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.mapper.OrdersMapperCustom">
+
+  <resultMap id="myOrdersVO" type="com.imooc.vo.CenterOrdersVO">
+    <id column="orderId" property="orderId" />
+    <result column="createdTime" property="createdTime" />
+    <result column="payMethod" property="payMethod" />
+    <result column="realPayAmount" property="realPayAmount" />
+    <result column="postAmount" property="postAmount" />
+    <result column="orderStatus" property="orderStatus" />
+    <result column="isComment" property="isComment" />
+
+    <collection property="subOrderItemList" select="getSubItems" column="orderId"
+                ofType="com.imooc.vo.SubCenterOrdersVO">
+      <result column="itemId" property="itemId" />
+      <result column="itemName" property="itemName" />
+      <result column="itemImg" property="itemImg" />
+      <result column="itemSpecId" property="itemSpecId" />
+      <result column="itemSpecName" property="itemSpecName" />
+      <result column="buyCounts" property="buyCounts" />
+      <result column="price" property="price" />
+    </collection>
+  </resultMap>
+
+  <select id="getSubItems" parameterType="String" resultType="com.imooc.vo.SubCenterOrdersVO">
+    select
+    item_id as itemId,
+    item_name as itemName,
+    item_img as itemImg,
+    item_spec_id as itemSpecId,
+    item_spec_name as itemSpecName,
+    buy_counts as buyCounts,
+    price as price
+    from
+     order_items
+    where
+        order_id = #{orderId}
+  </select>
+
+  <select id="queryMyOrders" parameterType="map" resultMap="myOrdersVO">
+    SELECT
+    od.id as orderId,
+    od.created_time as createdTime,
+    od.pay_method as payMethod,
+    od.real_pay_amount as realPayAmount,
+    od.post_amount as postAmount,
+    od.is_comment as isComment,
+    os.order_status as orderStatus
+    FROM
+    orders od
+    LEFT JOIN
+    order_status os
+    on od.id = os.order_id
+    WHERE
+    od.is_delete = 0
+    AND
+    od.user_id = #{userId}
+    <if test="orderStatus != null">
+      and os.order_status = #{orderStatus}
+    </if>
+    ORDER BY od.updated_time desc
+  </select>
+
+</mapper>

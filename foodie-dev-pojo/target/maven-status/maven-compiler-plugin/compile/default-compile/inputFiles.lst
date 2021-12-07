@@ -1,4 +1,5 @@
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-pojo/src/main/java/com/imooc/vo/SubCategoryVO.java
+/Users/davidshen/Documents/java/foodie-dev/foodie-dev-pojo/src/main/java/com/imooc/bo/center/CenterUserBo.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-pojo/src/main/java/com/imooc/pojo/ItemsParam.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-pojo/src/main/java/com/imooc/bo/UserAddressBo.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-pojo/src/main/java/com/imooc/pojo/Category.java
@@ -13,6 +14,7 @@
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-pojo/src/main/java/com/imooc/pojo/OrderItems.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-pojo/src/main/java/com/imooc/pojo/ItemsImg.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-pojo/src/main/java/com/imooc/pojo/Stu.java
+/Users/davidshen/Documents/java/foodie-dev/foodie-dev-pojo/src/main/java/com/imooc/bo/SubmitOrderBo.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-pojo/src/main/java/com/imooc/vo/IndexFloorVO.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-pojo/src/main/java/com/imooc/vo/CommentLevelCountsVO.java
 /Users/davidshen/Documents/java/foodie-dev/foodie-dev-pojo/src/main/java/com/imooc/vo/SearchItemVO.java
